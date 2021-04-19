@@ -8,6 +8,7 @@ using namespace std;
 
 int main(){
 
+    // get the user input 
     string ip_addr;
     string port_addr;
     cout << "gimme that ip hoss: ";
@@ -16,17 +17,18 @@ int main(){
         cin >> port_addr;
 
     
-
+    //define a whole bunch of stuff for asio
     asio::error_code er;
 
     asio::io_context context;
 
-    asio::ip::tcp::endpoint endpoint(asio::ip::make_address("192.168.0.1", er), 80);
+    asio::ip::tcp::endpoint endpoint(asio::ip::make_address(ip_addr, er), port_addr);
 
     asio::ip::tcp::socket socket(context);
 
     socket.connect(endpoint, er);
 
+    //checks if you have connected
     if (!er)
     {
         cout << "connected" << endl;
@@ -34,7 +36,7 @@ int main(){
     }
     else
     {
-        cout << "no connect:\n" << endl;
+        cout << "not connected:\n" << endl;
     }
 
     return 0;
